@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  webservice_recommendations:
+    image: recommendations
+    build:
+      context: ./recommendations
+      dockerfile: Dockerfile
+    privileged: true
+    ports:
+      - "50069:50069"
+
+  webservice_marketplace:
+    image: marketplace
+    build:
+      context: ./marketplace
+      dockerfile: Dockerfile
+    privileged: true
+    ports:
+      - "5001:5001"
+    environment:
+      - RECOMMENDATIONS_HOST=webservice_recommendations
